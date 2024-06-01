@@ -38,11 +38,11 @@ public class Keyboard implements java.awt.event.KeyListener {
         keys[keyCode] = true;
         if(listeners.containsKey(keyCode)) {
             KeyListener listener = listeners.get(keyCode);
-            listener.onPressed();
+            listener.onPressed(this);
             long delay = listener.holdingDelay();
             if(delay < 0) return;
             if(delay == 0) System.out.println("WARNING: Delay set to 0ms"); //TODO Do important logging
-            var future = this.scheduler.scheduleWithFixedDelay(listener::onHold, delay, delay, TimeUnit.MILLISECONDS);
+            var future = this.scheduler.scheduleWithFixedDelay(() -> listener.onHold(this), delay, delay, TimeUnit.MILLISECONDS);
             tasks.put(keyCode, future);
         }
     }
@@ -53,7 +53,7 @@ public class Keyboard implements java.awt.event.KeyListener {
         keys[keyCode] = false;
         if(listeners.containsKey(keyCode)) {
             KeyListener listener = listeners.get(keyCode);
-            listener.onReleased();
+            listener.onReleased(this);
             var future = this.tasks.remove(keyCode);
             if(future == null) return;
             future.cancel(true);

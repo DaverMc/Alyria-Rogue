@@ -1,5 +1,7 @@
 package de.daver.alyria.rogue.gui.io;
 
+import de.daver.alyria.rogue.game.Game;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -44,25 +46,27 @@ public class Mouse extends MouseAdapter {
 
     public void mousePressed(MouseEvent e) {
         int keyCode = e.getButton();
+        updatePosition(e);
         if(buttons[keyCode]) return;
         buttons[keyCode] = true;
         if(listeners.containsKey(keyCode)) {
             ButtonListener listener = listeners.get(keyCode);
-            listener.onPressed();
+            listener.onPressed(this);
             long delay = listener.holdingDelay();
             if(delay < 0) return;
             if(delay == 0) System.out.println("WARNING: Delay set to 0ms"); //TODO Do important logging
-            var future = this.scheduler.scheduleWithFixedDelay(listener::onHold, delay, delay, TimeUnit.MILLISECONDS);
+            var future = this.scheduler.scheduleWithFixedDelay(() -> listener.onHold(this), delay, delay, TimeUnit.MILLISECONDS);
             tasks.put(keyCode, future);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
         int keyCode = e.getButton();
+        updatePosition(e);
         buttons[keyCode] = false;
         if (listeners.containsKey(keyCode)) {
             ButtonListener listener = listeners.get(keyCode);
-            listener.onReleased();
+            listener.onReleased(this);
             var future = this.tasks.remove(keyCode);
             if (future == null) return;
             future.cancel(true);
@@ -77,11 +81,26 @@ public class Mouse extends MouseAdapter {
         this.inView = false;
     }
 
-    public boolean buttonPressed(int button) {
+    public boolean isButtonPressed(int button) {
         return this.buttons[button];
     }
 
     public boolean isInView() {
         return this.inView;
+    }
+
+    private void updatePosition(MouseEvent e) {
+        float scaleX = (float) Game.GUI_WIDTH / Game.get().window().width();
+        float scaleY = (float) Game.GUI_HEIGHT / Game.get().window().height();
+        this.x = (int) (e.getX() * scaleX);
+        this.y = (int) (e.getY() * scaleY);
+    }
+
+    public int x() {
+        return this.x;
+    }
+
+    public int y() {
+        return this.y;
     }
 }

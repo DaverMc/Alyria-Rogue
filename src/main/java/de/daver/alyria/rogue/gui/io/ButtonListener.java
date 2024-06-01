@@ -2,12 +2,14 @@ package de.daver.alyria.rogue.gui.io;
 
 public interface ButtonListener {
 
-    void onPressed();
+    default void onPressed(Mouse mouse) {}
 
-    void onReleased();
+    default void onReleased(Mouse mouse) {}
 
-    void onHold();
+    default void onHold(Mouse mouse) {}
 
-    long holdingDelay();
+    default long holdingDelay() {
+        return -1;
+    }
 
 }
