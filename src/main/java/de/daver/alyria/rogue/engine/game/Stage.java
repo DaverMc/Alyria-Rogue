@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.game;
+package de.daver.alyria.rogue.engine.game;
 
 public class Stage {
 
@@ -8,6 +8,14 @@ public class Stage {
 
     public Team getEnemies() {
         return null;
+    }
+
+    public void load() {
+
+    }
+
+    public void unload() {
+
     }
 
 }

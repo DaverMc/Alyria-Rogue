@@ -1,6 +1,6 @@
-package de.daver.alyria.rogue.game;
+package de.daver.alyria.rogue.engine.game;
 
-import de.daver.alyria.rogue.gui.Window;
+import de.daver.alyria.rogue.engine.gui.Window;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class Game {
     // PRIVATE VARIABLES
     private long lasTick;
     private boolean running;
-    private Stage currentStage;
+    private Chapter currentChapter;
 
     private Game() {
         this.window = new Window(GUI_WIDTH, GUI_HEIGHT);

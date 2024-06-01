@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.game;
+package de.daver.alyria.rogue.engine.game;
 
 interface CoordinateConverter {
 

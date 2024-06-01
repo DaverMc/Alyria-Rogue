@@ -1,13 +1,13 @@
 package de.daver.alyria.rogue;
 
-import de.daver.alyria.rogue.game.Game;
-import de.daver.alyria.rogue.game.GameObject;
-import de.daver.alyria.rogue.gui.io.ButtonListener;
-import de.daver.alyria.rogue.gui.io.KeyListener;
-import de.daver.alyria.rogue.gui.RenderObject;
-import de.daver.alyria.rogue.gui.Sprite;
-import de.daver.alyria.rogue.gui.io.Keyboard;
-import de.daver.alyria.rogue.gui.io.Mouse;
+import de.daver.alyria.rogue.engine.game.Game;
+import de.daver.alyria.rogue.engine.game.GameObject;
+import de.daver.alyria.rogue.engine.gui.io.ButtonListener;
+import de.daver.alyria.rogue.engine.gui.io.KeyListener;
+import de.daver.alyria.rogue.engine.gui.RenderObject;
+import de.daver.alyria.rogue.engine.gui.Sprite;
+import de.daver.alyria.rogue.engine.gui.io.Keyboard;
+import de.daver.alyria.rogue.engine.gui.io.Mouse;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,7 +20,10 @@ public class Main {
     public static void main(String[] args) {
         Game game = Game.get();
         initTest(game);
-        game.start();
+        if(!game.start()) {
+            System.out.println("Game can't start"); //TODO Logging
+            return;
+        }
         while(game.run());
         game.save();
     }

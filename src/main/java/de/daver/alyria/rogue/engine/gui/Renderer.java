@@ -1,6 +1,6 @@
-package de.daver.alyria.rogue.gui;
+package de.daver.alyria.rogue.engine.gui;
 
-import de.daver.alyria.rogue.game.Game;
+import de.daver.alyria.rogue.engine.game.Game;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

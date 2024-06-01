@@ -1,6 +1,6 @@
-package de.daver.alyria.rogue.game;
+package de.daver.alyria.rogue.engine.game;
 
-import de.daver.alyria.rogue.gui.RenderObject;
+import de.daver.alyria.rogue.engine.gui.RenderObject;
 
 import java.util.UUID;
 

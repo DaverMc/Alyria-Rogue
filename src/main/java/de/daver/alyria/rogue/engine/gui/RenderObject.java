@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.gui;
+package de.daver.alyria.rogue.engine.gui;
 
 import java.util.HashMap;
 import java.util.Map;

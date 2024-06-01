@@ -1,6 +1,6 @@
-package de.daver.alyria.rogue.gui.io;
+package de.daver.alyria.rogue.engine.gui.io;
 
-import de.daver.alyria.rogue.game.Game;
+import de.daver.alyria.rogue.engine.game.Game;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
