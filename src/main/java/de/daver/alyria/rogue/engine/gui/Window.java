@@ -1,8 +1,8 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.game.Game;
-import de.daver.alyria.rogue.engine.gui.io.Keyboard;
-import de.daver.alyria.rogue.engine.gui.io.Mouse;
+import de.daver.alyria.rogue.engine.io.Keyboard;
+import de.daver.alyria.rogue.engine.io.Mouse;
 
 import javax.swing.*;
 
@@ -23,7 +23,7 @@ public class Window {
         this.frame.addKeyListener(keyboard);
 
         this.mouse = new Mouse();
-        this.frame.addMouseListener(mouse);
+        this.frame.panel.addMouseListener(mouse);
     }
 
     private void onWindowClose() {

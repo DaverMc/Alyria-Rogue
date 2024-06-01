@@ -2,12 +2,12 @@ package de.daver.alyria.rogue;
 
 import de.daver.alyria.rogue.engine.game.Game;
 import de.daver.alyria.rogue.engine.game.GameObject;
-import de.daver.alyria.rogue.engine.gui.io.ButtonListener;
-import de.daver.alyria.rogue.engine.gui.io.KeyListener;
+import de.daver.alyria.rogue.engine.io.ButtonListener;
+import de.daver.alyria.rogue.engine.io.KeyListener;
 import de.daver.alyria.rogue.engine.gui.RenderObject;
 import de.daver.alyria.rogue.engine.gui.Sprite;
-import de.daver.alyria.rogue.engine.gui.io.Keyboard;
-import de.daver.alyria.rogue.engine.gui.io.Mouse;
+import de.daver.alyria.rogue.engine.io.Keyboard;
+import de.daver.alyria.rogue.engine.io.Mouse;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
