@@ -5,6 +5,7 @@ import de.daver.alyria.rogue.engine.io.Keyboard;
 import de.daver.alyria.rogue.engine.io.Mouse;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Window {
 
@@ -44,6 +45,7 @@ public class Window {
     }
 
     public void update() {
+        this.mouse.updatePosition(this.frame.panel().getMousePosition());
         this.frame.repaint();
     }
 

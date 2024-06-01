@@ -4,8 +4,6 @@ import de.daver.alyria.rogue.engine.game.Game;
 import de.daver.alyria.rogue.engine.util.ImageUtils;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.Raster;

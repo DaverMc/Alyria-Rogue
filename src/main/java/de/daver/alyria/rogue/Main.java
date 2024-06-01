@@ -99,11 +99,24 @@ public class Main {
 
         mouse.setMouseWheelListener(System.out::println);
 
-        try {
-            AudioTools.playRessource("audio/Saufen.wav");
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Thread t1 = new Thread(() -> {
+            try {
+                AudioTools.playRessource("audio/Norwegen.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread t = new Thread(() -> {
+            try {
+                AudioTools.playRessource("audio/Saufen.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        t.start();
+        t1.start();
+
     }
 
 }

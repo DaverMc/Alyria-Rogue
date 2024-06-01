@@ -2,6 +2,7 @@ package de.daver.alyria.rogue.engine.io;
 
 import de.daver.alyria.rogue.engine.game.Game;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -94,6 +95,12 @@ public class Mouse extends MouseAdapter {
         float scaleY = (float) Game.GUI_HEIGHT / Game.get().window().height();
         this.x = (int) (e.getX() * scaleX);
         this.y = (int) (e.getY() * scaleY);
+    }
+
+    public void updatePosition(Point point) {
+        if(point == null) return;
+        this.x = point.x;
+        this.y = point.y;
     }
 
     public int x() {
