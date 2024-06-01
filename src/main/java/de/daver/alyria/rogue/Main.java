@@ -6,7 +6,10 @@ import de.daver.alyria.rogue.engine.gui.RenderObject;
 import de.daver.alyria.rogue.engine.gui.Sprite;
 import de.daver.alyria.rogue.engine.io.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.UUID;
 
 public class Main {
@@ -25,7 +28,7 @@ public class Main {
     private static void initTest(Game game) {
         GameObject hero;
         try {
-            Sprite heroSprite = Sprite.fromRessource("hero.png");
+            Sprite heroSprite = Sprite.fromRessource("sprites/hero.png");
             RenderObject heroRender = new RenderObject(heroSprite);
             hero = new GameObject(UUID.randomUUID(), heroRender);
             game.addObject(hero);
@@ -95,6 +98,12 @@ public class Main {
         });
 
         mouse.setMouseWheelListener(System.out::println);
+
+        try {
+            AudioTools.playRessource("audio/Saufen.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

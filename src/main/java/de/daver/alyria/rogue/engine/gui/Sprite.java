@@ -1,6 +1,7 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.util.ImageUtils;
+import de.daver.alyria.rogue.engine.util.Ressource;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class Sprite {
     private final int[] pixels;
 
     public static Sprite fromRessource(String path) throws IOException {
-        return new Sprite(ImageIO.read(Objects.requireNonNull(Sprite.class.getClassLoader().getResource(path))));
+        return new Sprite(ImageIO.read(Ressource.asStream(path)));
     }
 
     public static Sprite fromFile(File file) throws IOException {
