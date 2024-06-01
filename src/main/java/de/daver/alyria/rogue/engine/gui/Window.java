@@ -24,6 +24,7 @@ public class Window {
 
         this.mouse = new Mouse();
         this.frame.panel().addMouseListener(mouse);
+        this.frame.addMouseWheelListener(mouse);
     }
 
     private void onWindowClose() {

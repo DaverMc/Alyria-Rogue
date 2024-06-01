@@ -34,12 +34,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        float speed = 10.0f;
         var keyboard = Game.get().window().keyboard();
 
         keyboard.setKeyListener(Keys.VK_W, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                hero.setVelocityY(-1.0f);
+                hero.setVelocityY(-speed);
             }
 
             @Override
@@ -51,7 +52,7 @@ public class Main {
         keyboard.setKeyListener(Keys.VK_S, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                hero.setVelocityY(1.0f);
+                hero.setVelocityY(speed);
             }
 
             @Override
@@ -63,7 +64,7 @@ public class Main {
         keyboard.setKeyListener(Keys.VK_A, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                hero.setVelocityX(-1.0f);
+                hero.setVelocityX(-speed);
             }
 
             @Override
@@ -75,7 +76,7 @@ public class Main {
         keyboard.setKeyListener(Keys.VK_D, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                hero.setVelocityX(1.0f);
+                hero.setVelocityX(speed);
             }
 
             @Override
@@ -84,12 +85,16 @@ public class Main {
             }
         });
 
-        Game.get().window().mouse().addListener(MouseEvent.BUTTON1, new ButtonListener() {
+        var mouse = Game.get().window().mouse();
+
+        mouse.addListener(MouseEvent.BUTTON1, new ButtonListener() {
             @Override
             public void onPressed(Mouse mouse) {
                 hero.setPosition(mouse.x(), mouse.y());
             }
         });
+
+        mouse.setMouseWheelListener(System.out::println);
     }
 
 }
