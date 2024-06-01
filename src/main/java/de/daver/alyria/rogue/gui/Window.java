@@ -8,12 +8,17 @@ import java.awt.*;
 public class Window {
 
     private final RenderedFrame frame;
+    private final Keyboard keyboard;
 
     public Window(int width, int height) {
-        frame = new RenderedFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.addWindowListener(new CloseOperation(this::onWindowClose));
-        frame.setSize(width, height);
+        this.frame = new RenderedFrame();
+        this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.frame.addWindowListener(new CloseOperation(this::onWindowClose));
+        this.frame.setSize(width, height);
+        this.frame.setLocationRelativeTo(null);
+
+        this.keyboard = new Keyboard();
+        this.frame.addKeyListener(keyboard);
     }
 
     private void onWindowClose() {
@@ -40,6 +45,10 @@ public class Window {
         return this.frame.renderer;
     }
 
+    public Keyboard keyboard() {
+        return this.keyboard;
+    }
+
     private static class RenderedFrame extends JFrame {
 
         private final Renderer renderer;
@@ -50,7 +59,6 @@ public class Window {
                 @Override
                 public void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    System.out.println("REPAINT");
                     g.drawImage(renderer.renderView(), 0, 0, null);
                 }
             });

@@ -31,11 +31,11 @@ public class RenderObject {
     public int[] render() {
         if (this.currentSprite == null) this.currentSprite = this.defaultSprite;
         Sprite renderSprite = this.currentSprite;
-        //Do Animation stuff in between
+
+        if(this.currentAnimation != null) renderSprite = this.currentAnimation.animate(renderSprite);
+
         this.width = renderSprite.width();
         this.height = renderSprite.height();
-        this.x = 0; //TODO Calculate off GameObject
-        this.y = 0; //TODO Calculate off GameObject
 
         return renderSprite.pixels();
     }
@@ -54,6 +54,11 @@ public class RenderObject {
 
     public int height() {
         return this.height;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
 }

@@ -2,10 +2,12 @@ package de.daver.alyria.rogue;
 
 import de.daver.alyria.rogue.game.Game;
 import de.daver.alyria.rogue.game.GameObject;
+import de.daver.alyria.rogue.gui.KeyListener;
 import de.daver.alyria.rogue.gui.RenderObject;
 import de.daver.alyria.rogue.gui.Sprite;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -27,6 +29,28 @@ public class Main {
         GameObject red = new GameObject(UUID.randomUUID(), redRender);
         game.addObject(red);
         red.show();
+
+        Game.get().window().keyboard().setKeyListener(KeyEvent.VK_W, new KeyListener() {
+            @Override
+            public void onPressed() {
+                red.setVelocityY(1.0f);
+                System.out.println("P");
+            }
+
+            @Override
+            public void onRelease() {
+                red.setVelocityY(0);
+                System.out.println("R");
+            }
+
+            @Override
+            public void onHold() {}
+
+            @Override
+            public long holdDelay() {
+                return 1;
+            }
+        });
     }
 
 }

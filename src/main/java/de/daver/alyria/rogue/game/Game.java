@@ -53,7 +53,7 @@ public class Game {
     }
 
     private void tick() {
-
+        objects.values().forEach(GameObject::tick);
     }
 
     private void render() {

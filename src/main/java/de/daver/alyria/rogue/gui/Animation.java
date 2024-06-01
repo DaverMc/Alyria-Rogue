@@ -1,9 +1,9 @@
 package de.daver.alyria.rogue.gui;
 
-public class Animation {
+public abstract class Animation {
 
-    public Sprite animate(Sprite origin) {
-        return origin;
-    }
+    private int index;
+
+    public abstract Sprite animate(Sprite origin);
 
 }
