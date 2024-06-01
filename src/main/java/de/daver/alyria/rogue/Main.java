@@ -2,17 +2,11 @@ package de.daver.alyria.rogue;
 
 import de.daver.alyria.rogue.engine.game.Game;
 import de.daver.alyria.rogue.engine.game.GameObject;
-import de.daver.alyria.rogue.engine.io.ButtonListener;
-import de.daver.alyria.rogue.engine.io.KeyListener;
 import de.daver.alyria.rogue.engine.gui.RenderObject;
 import de.daver.alyria.rogue.engine.gui.Sprite;
-import de.daver.alyria.rogue.engine.io.Keyboard;
-import de.daver.alyria.rogue.engine.io.Mouse;
+import de.daver.alyria.rogue.engine.io.*;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class Main {
@@ -29,68 +23,71 @@ public class Main {
     }
 
     private static void initTest(Game game) {
-        int[] pixels = new int[100];
-        Arrays.fill(pixels, Color.RED.getRGB());
-        Sprite redSprite = new Sprite(10, 10, pixels);
-        RenderObject redRender = new RenderObject(redSprite);
-        GameObject red = new GameObject(UUID.randomUUID(), redRender);
-        game.addObject(red);
-        red.show();
+        GameObject hero;
+        try {
+            Sprite heroSprite = Sprite.fromRessource("hero.png");
+            RenderObject heroRender = new RenderObject(heroSprite);
+            hero = new GameObject(UUID.randomUUID(), heroRender);
+            game.addObject(hero);
+            hero.show();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         var keyboard = Game.get().window().keyboard();
 
-        keyboard.setKeyListener(KeyEvent.VK_W, new KeyListener() {
+        keyboard.setKeyListener(Keys.VK_W, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                red.setVelocityY(-1.0f);
+                hero.setVelocityY(-1.0f);
             }
 
             @Override
             public void onReleased(Keyboard kb) {
-                red.setVelocityY(0);
+                if(!kb.isKeyPressed(Keys.VK_S)) hero.setVelocityY(0);
             }
         });
 
-        keyboard.setKeyListener(KeyEvent.VK_S, new KeyListener() {
+        keyboard.setKeyListener(Keys.VK_S, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                red.setVelocityY(1.0f);
+                hero.setVelocityY(1.0f);
             }
 
             @Override
             public void onReleased(Keyboard kb) {
-                red.setVelocityY(0);
+                if(!kb.isKeyPressed(Keys.VK_W)) hero.setVelocityY(0);
             }
         });
 
-        keyboard.setKeyListener(KeyEvent.VK_A, new KeyListener() {
+        keyboard.setKeyListener(Keys.VK_A, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                red.setVelocityX(-1.0f);
+                hero.setVelocityX(-1.0f);
             }
 
             @Override
             public void onReleased(Keyboard kb) {
-                red.setVelocityX(0);
+                if(!kb.isKeyPressed(Keys.VK_D)) hero.setVelocityX(0);
             }
         });
 
-        keyboard.setKeyListener(KeyEvent.VK_D, new KeyListener() {
+        keyboard.setKeyListener(Keys.VK_D, new KeyListener() {
             @Override
             public void onPressed(Keyboard kb) {
-                red.setVelocityX(1.0f);
+                hero.setVelocityX(1.0f);
             }
 
             @Override
             public void onReleased(Keyboard kb) {
-                red.setVelocityX(0);
+                if(!kb.isKeyPressed(Keys.VK_A)) hero.setVelocityX(0);
             }
         });
 
         Game.get().window().mouse().addListener(MouseEvent.BUTTON1, new ButtonListener() {
             @Override
             public void onPressed(Mouse mouse) {
-                red.setPosition(mouse.x(), mouse.y());
+                hero.setPosition(mouse.x(), mouse.y());
             }
         });
     }

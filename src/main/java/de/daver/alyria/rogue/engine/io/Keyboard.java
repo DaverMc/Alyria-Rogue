@@ -22,8 +22,12 @@ public class Keyboard implements java.awt.event.KeyListener {
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
     }
 
-    public void setKeyListener(int keyCode, KeyListener keyListener) {
-        this.listeners.put(keyCode, keyListener);
+    public void setKeyListener(Keys key, KeyListener keyListener) {
+        this.listeners.put(key.getCode(), keyListener);
+    }
+
+    public boolean isKeyPressed(Keys key) {
+        return this.keys[key.getCode()];
     }
 
     @Override

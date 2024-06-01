@@ -1,6 +1,7 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.game.Game;
+import de.daver.alyria.rogue.engine.util.ImageUtils;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -46,7 +47,7 @@ public class Renderer {
     public BufferedImage renderView() {
         Arrays.fill(pixels, COLOR_BLACK); // Reset pixels to black
         objectMap.values().forEach(this::draw);
-        return scale(image);
+        return ImageUtils.scale(image);
     }
 
     private void draw(RenderObject object) {
@@ -58,18 +59,17 @@ public class Renderer {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int index = y * width + x;
+                if(isAlphaColor(pixels[index])) continue;
                 int pixelIndex = (y + offsetY) * Game.GUI_WIDTH  + (x + offsetX);
                 this.pixels[pixelIndex] = pixels[index];
             }
         }
     }
 
-    private BufferedImage scale(BufferedImage unscaled) {
-        Window window = Game.get().window();
-        double scaleX = (double) window.width() / unscaled.getWidth();
-        double scaleY = (double) window.height() / unscaled.getHeight();
-        AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
-        AffineTransformOp scaleOperation = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
-        return scaleOperation.filter(unscaled, null);
+    public static boolean isAlphaColor(int argb) {
+        int alpha = (argb >> 24) & 0xFF;
+        return alpha < 255;
     }
+
+
 }

@@ -12,6 +12,8 @@ public class Game {
     // Gui Constants
     public static final int GUI_WIDTH = 1280;
     public static final int GUI_HEIGHT = 720;
+    public static final int WORLD_WIDTH = 1280;
+    public static final int WORLD_HEIGHT = 720;
 
     //Game Constants
     public static final int TICKS_PER_SECOND = 20;
@@ -23,6 +25,7 @@ public class Game {
     private static Game instance;
 
     // PRIVATE ATTRIBUTES
+    private final ViewTransformer viewTransformer;
     private final Window window;
     private final Map<UUID, GameObject> objects;
 
@@ -32,6 +35,7 @@ public class Game {
     private Chapter currentChapter;
 
     private Game() {
+        this.viewTransformer = new ViewTransformer(GUI_WIDTH, GUI_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
         this.window = new Window(GUI_WIDTH, GUI_HEIGHT);
         this.objects = new HashMap<>();
     }
@@ -70,6 +74,10 @@ public class Game {
 
     public Window window() {
         return this.window;
+    }
+
+    public ViewTransformer viewTransformer() {
+        return this.viewTransformer;
     }
 
     public void addObject(GameObject object) {

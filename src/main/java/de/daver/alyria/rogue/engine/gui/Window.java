@@ -23,7 +23,7 @@ public class Window {
         this.frame.addKeyListener(keyboard);
 
         this.mouse = new Mouse();
-        this.frame.panel.addMouseListener(mouse);
+        this.frame.panel().addMouseListener(mouse);
     }
 
     private void onWindowClose() {
@@ -47,7 +47,7 @@ public class Window {
     }
 
     public Renderer renderer() {
-        return this.frame.renderer;
+        return this.frame.renderer();
     }
 
     public Keyboard keyboard() {

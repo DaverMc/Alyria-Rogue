@@ -35,7 +35,7 @@ public class GameObject {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
-        renderObject.setPosition(CoordinateConverter.gameToViewX(this.x), CoordinateConverter.gameToViewY(this.y));
+        renderObject.setPosition(Game.get().viewTransformer().gameToViewX(this.x), Game.get().viewTransformer().gameToViewY(this.y));
     }
 
     public void move() {

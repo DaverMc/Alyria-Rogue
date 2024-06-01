@@ -1,23 +1,23 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 class RenderedFrame extends JFrame {
 
-    final JPanel panel;
-    final Renderer renderer;
+    private final ImagePanel panel;
+    private final Renderer renderer;
 
     public RenderedFrame() {
         this.renderer = new Renderer();
-        this.panel = new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(renderer.renderView(), 0, 0, null);
-            }
-        };
-
+        this.panel = new ImagePanel(renderer::renderView);
         setContentPane(this.panel);
+    }
+
+    public ImagePanel panel() {
+        return this.panel;
+    }
+
+    public Renderer renderer() {
+        return this.renderer;
     }
 }
