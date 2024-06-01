@@ -1,14 +1,16 @@
 package de.daver.alyria.rogue.gui;
 
 import de.daver.alyria.rogue.game.Game;
+import de.daver.alyria.rogue.gui.io.Keyboard;
+import de.daver.alyria.rogue.gui.io.Mouse;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Window {
 
     private final RenderedFrame frame;
     private final Keyboard keyboard;
+    private final Mouse mouse;
 
     public Window(int width, int height) {
         this.frame = new RenderedFrame();
@@ -19,6 +21,9 @@ public class Window {
 
         this.keyboard = new Keyboard();
         this.frame.addKeyListener(keyboard);
+
+        this.mouse = new Mouse();
+        this.frame.addMouseListener(mouse);
     }
 
     private void onWindowClose() {
@@ -49,19 +54,8 @@ public class Window {
         return this.keyboard;
     }
 
-    private static class RenderedFrame extends JFrame {
-
-        private final Renderer renderer;
-
-        public RenderedFrame() {
-            this.renderer = new Renderer();
-            setContentPane(new JPanel() {
-                @Override
-                public void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.drawImage(renderer.renderView(), 0, 0, null);
-                }
-            });
-        }
+    public Mouse mouse() {
+        return this.mouse;
     }
+
 }

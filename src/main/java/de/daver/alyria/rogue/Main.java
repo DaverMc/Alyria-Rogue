@@ -2,7 +2,7 @@ package de.daver.alyria.rogue;
 
 import de.daver.alyria.rogue.game.Game;
 import de.daver.alyria.rogue.game.GameObject;
-import de.daver.alyria.rogue.gui.KeyListener;
+import de.daver.alyria.rogue.gui.io.KeyListener;
 import de.daver.alyria.rogue.gui.RenderObject;
 import de.daver.alyria.rogue.gui.Sprite;
 
@@ -38,7 +38,7 @@ public class Main {
             }
 
             @Override
-            public void onRelease() {
+            public void onReleased() {
                 red.setVelocityY(0);
                 System.out.println("R");
             }
@@ -47,7 +47,7 @@ public class Main {
             public void onHold() {}
 
             @Override
-            public long holdDelay() {
+            public long holdingDelay() {
                 return 1;
             }
         });

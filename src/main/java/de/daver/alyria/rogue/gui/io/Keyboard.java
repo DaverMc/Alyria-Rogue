@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.gui;
+package de.daver.alyria.rogue.gui.io;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class Keyboard implements java.awt.event.KeyListener {
         if(listeners.containsKey(keyCode)) {
             KeyListener listener = listeners.get(keyCode);
             listener.onPressed();
-            long delay = listener.holdDelay();
+            long delay = listener.holdingDelay();
             if(delay < 0) return;
             if(delay == 0) System.out.println("WARNING: Delay set to 0ms"); //TODO Do important logging
             var future = this.scheduler.scheduleWithFixedDelay(listener::onHold, delay, delay, TimeUnit.MILLISECONDS);
@@ -53,7 +53,7 @@ public class Keyboard implements java.awt.event.KeyListener {
         keys[keyCode] = false;
         if(listeners.containsKey(keyCode)) {
             KeyListener listener = listeners.get(keyCode);
-            listener.onRelease();
+            listener.onReleased();
             var future = this.tasks.remove(keyCode);
             if(future == null) return;
             future.cancel(true);
