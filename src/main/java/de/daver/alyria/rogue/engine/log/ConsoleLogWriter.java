@@ -7,6 +7,11 @@ public abstract class ConsoleLogWriter extends LogWriter{
     private final PrintStream out;
     private final PrintStream err;
 
+    private LogFormatter infoFormatter;
+    private LogFormatter errMsgFormatter;
+    private LogFormatter exceptionFormatter;
+    private LogFormatter errMssExceptionFormatter;
+
     private int errorLevel;
 
     public ConsoleLogWriter(Level... levels) {
@@ -22,6 +27,14 @@ public abstract class ConsoleLogWriter extends LogWriter{
         this.out = out;
         this.err = err;
         this.errorLevel = -1;
+
+        this.infoFormatter = new LogFormatter(LoggingFormats.INFO);
+        this.errMsgFormatter = new LogFormatter(LoggingFormats.INFO);
+
+        this.exceptionFormatter = new LogFormatter(LoggingFormats.EXCEPTION);
+        exceptionFormatter.setStacktraceDepth(1);
+
+        this.errMssExceptionFormatter = new LogFormatter(LoggingFormats.EXCEPTION_INFO);
     }
 
     public void setErrorLevel(Level errorLevel) {
@@ -35,18 +48,15 @@ public abstract class ConsoleLogWriter extends LogWriter{
     }
 
     protected String formatMsg(LogEntry entry) {
-        var formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message> (<par_count>) {<parameters>}");
-        return formatter.format(entry);
+        return infoFormatter.format(entry);
     }
 
     protected String formatErrorMsg(LogEntry entry) {
         LogFormatter formatter = null;
 
-        if(entry.throwable() != null && entry.message() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message> \n-> Exception: <stacktrace>");
-        else if(entry.throwable() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>] Exception: <stacktrace>");
-        else if(entry.message() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message>");
-
-        formatter.setStacktraceDepth(1);
+        if(entry.throwable() != null && entry.message() != null) formatter = errMssExceptionFormatter;
+        else if(entry.throwable() != null) formatter = exceptionFormatter;
+        else if(entry.message() != null) formatter = errMsgFormatter;
 
         return (formatter == null)? "" : formatter.format(entry);
     }

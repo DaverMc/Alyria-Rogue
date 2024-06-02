@@ -5,20 +5,18 @@ import java.util.Map;
 
 public class LogFormatter {
 
-    public static final String KEY_TIME = "<time>";
-    public static final String KEY_PREFIX = "<prefix>";
-    public static final String KEY_LEVEL = "<level>";
-    public static final String KEY_MESSAGE = "<message>";
-    public static final String KEY_STACKTRACE = "<stacktrace>";
-    public static final String KEY_THREAD = "<thread>";
-    public static final String KEY_PARAMETERS = "<parameters>";
 
-    private final String format;
+
+    private final String pattern;
     private int stacktraceDepth;
     private String dateFormat;
 
-    public LogFormatter(String format) {
-        this.format = format;
+    public LogFormatter(LogFormat pattern) {
+        this(pattern.pattern());
+    }
+
+    private LogFormatter(String pattern) {
+        this.pattern = pattern;
         this.stacktraceDepth = -1;
         this.dateFormat = "hh:mm:ss";
     }
@@ -32,14 +30,14 @@ public class LogFormatter {
     }
 
     public String format(LogEntry entry) {
-        String message = format;
-        message = replaceKey(message, KEY_TIME, entry.time().format(DateTimeFormatter.ofPattern(dateFormat)));
-        message = replaceKey(message, KEY_PREFIX, entry.level().getPrefix());
-        message = replaceKey(message, KEY_LEVEL, entry.level().getName());
-        message = replaceKey(message, KEY_MESSAGE, entry.message());
-        message = replaceKey(message, KEY_STACKTRACE, printStacktrace(entry.throwable()));
-        message = replaceKey(message, KEY_THREAD, entry.thread().getName());
-        message = replaceKey(message, KEY_PARAMETERS, printParameters(entry.parameters()));
+        String message = pattern;
+        message = replaceKey(message, LogFormat.KEY_TIME, entry.time().format(DateTimeFormatter.ofPattern(dateFormat)));
+        message = replaceKey(message, LogFormat.KEY_PREFIX, entry.level().getPrefix());
+        message = replaceKey(message, LogFormat.KEY_LEVEL, entry.level().getName());
+        message = replaceKey(message, LogFormat.KEY_MESSAGE, entry.message());
+        message = replaceKey(message, LogFormat.KEY_STACKTRACE, printStacktrace(entry.throwable()));
+        message = replaceKey(message, LogFormat.KEY_THREAD, entry.thread().getName());
+        message = replaceKey(message, LogFormat.KEY_PARAMETERS, printParameters(entry.parameters()));
 
         for(String key : entry.parameters().keySet()) message = replaceKey(message, "<par_" + key + ">", entry.parameters().get(key));
 
