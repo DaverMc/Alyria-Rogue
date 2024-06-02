@@ -1,11 +1,10 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.game.Game;
-import de.daver.alyria.rogue.engine.io.Keyboard;
-import de.daver.alyria.rogue.engine.io.Mouse;
+import de.daver.alyria.rogue.engine.gui.input.Keyboard;
+import de.daver.alyria.rogue.engine.gui.input.Mouse;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Window {
 

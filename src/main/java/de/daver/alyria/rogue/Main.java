@@ -1,16 +1,15 @@
 package de.daver.alyria.rogue;
 
+import de.daver.alyria.rogue.engine.audio.AudioManager;
+import de.daver.alyria.rogue.engine.audio.Lanes;
 import de.daver.alyria.rogue.engine.game.Game;
 import de.daver.alyria.rogue.engine.game.GameObject;
 import de.daver.alyria.rogue.engine.gui.RenderObject;
 import de.daver.alyria.rogue.engine.gui.Sprite;
-import de.daver.alyria.rogue.engine.io.*;
+import de.daver.alyria.rogue.engine.gui.input.*;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -90,33 +89,28 @@ public class Main {
 
         var mouse = Game.get().window().mouse();
 
-        mouse.addListener(MouseEvent.BUTTON1, new ButtonListener() {
+        mouse.addListener(Buttons.LEFT, new ButtonListener() {
             @Override
             public void onPressed(Mouse mouse) {
                 hero.setPosition(mouse.x(), mouse.y());
+                AudioManager.get().loadRessource("audio/Norwegen.wav")
+                        .setStart(5, TimeUnit.SECONDS)
+                        .play(Lanes.MUSIC);
+            }
+        });
+
+        mouse.addListener(Buttons.RIGHT, new ButtonListener() {
+            @Override
+            public void onPressed(Mouse mouse) {
+                hero.setPosition(mouse.x(), mouse.y());
+                AudioManager.get().loadRessource("audio/Saufen.wav")
+                        .setStart(10, TimeUnit.SECONDS)
+                        .setEnd(15, TimeUnit.SECONDS)
+                        .play(Lanes.EFFECT);
             }
         });
 
         mouse.setMouseWheelListener(System.out::println);
-
-        Thread t1 = new Thread(() -> {
-            try {
-                AudioTools.playRessource("audio/Norwegen.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        Thread t = new Thread(() -> {
-            try {
-                AudioTools.playRessource("audio/Saufen.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        t.start();
-        t1.start();
-
     }
 
 }

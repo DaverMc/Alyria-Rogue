@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.engine.io;
+package de.daver.alyria.rogue.engine.gui.input;
 
 import java.awt.event.MouseEvent;
 

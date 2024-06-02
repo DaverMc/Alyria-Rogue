@@ -1,4 +1,4 @@
-package de.daver.alyria.rogue.engine.io;
+package de.daver.alyria.rogue.engine.gui.input;
 
 import de.daver.alyria.rogue.engine.game.Game;
 
@@ -36,8 +36,8 @@ public class Mouse extends MouseAdapter {
         this.mouseWheelListener = mouseWheelListener;
     }
 
-    public void addListener(int button, ButtonListener listener) {
-        listeners.put(button, listener);
+    public void addListener(Buttons button, ButtonListener listener) {
+        listeners.put(button.getCode(), listener);
     }
 
     public void mouseWheelMoved(MouseWheelEvent e){
