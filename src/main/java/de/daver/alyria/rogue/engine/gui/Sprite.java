@@ -2,14 +2,10 @@ package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.image.ImageType;
 import de.daver.alyria.rogue.engine.image.ImageWrapper;
-import de.daver.alyria.rogue.engine.util.Ressource;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.Raster;
-import java.io.File;
-import java.io.IOException;
 
 
 public class Sprite {

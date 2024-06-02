@@ -2,11 +2,9 @@ package de.daver.alyria.rogue.engine.audio;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class AudioClip {

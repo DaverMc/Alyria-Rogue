@@ -9,7 +9,6 @@ import de.daver.alyria.rogue.engine.gui.Sprite;
 import de.daver.alyria.rogue.engine.gui.input.*;
 import de.daver.alyria.rogue.engine.image.ImageWrapper;
 import de.daver.alyria.rogue.engine.log.ConsoleLogWriter;
-import de.daver.alyria.rogue.engine.log.LogEntry;
 import de.daver.alyria.rogue.engine.log.Logger;
 import de.daver.alyria.rogue.engine.log.LoggingLevels;
 
