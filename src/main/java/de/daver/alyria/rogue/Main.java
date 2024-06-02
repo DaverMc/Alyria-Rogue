@@ -8,7 +8,12 @@ import de.daver.alyria.rogue.engine.gui.RenderObject;
 import de.daver.alyria.rogue.engine.gui.Sprite;
 import de.daver.alyria.rogue.engine.gui.input.*;
 import de.daver.alyria.rogue.engine.image.ImageWrapper;
+import de.daver.alyria.rogue.engine.log.ConsoleLogWriter;
+import de.daver.alyria.rogue.engine.log.LogEntry;
+import de.daver.alyria.rogue.engine.log.Logger;
+import de.daver.alyria.rogue.engine.log.LoggingLevels;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -112,6 +117,19 @@ public class Main {
         });
 
         mouse.setMouseWheelListener(System.out::println);
+
+
+        var logWriter = new ConsoleLogWriter(){};
+        logWriter.addLevel(LoggingLevels.DEBUG);
+        logWriter.addLevel(LoggingLevels.ERROR);
+        logWriter.setErrorLevel(LoggingLevels.ERROR);
+
+        Logger.get().addLogWriter(logWriter);
+
+        Logger.record(LoggingLevels.DEBUG).message("Test").log();
+        Logger.record(LoggingLevels.ERROR).message("Test").log();
+        Logger.record(LoggingLevels.ERROR).throwable(new IOException("File not found!")).log();
+        Logger.record(LoggingLevels.ERROR).message("Error occured").throwable(new IOException("Cannot access file")).log();
     }
 
 }
