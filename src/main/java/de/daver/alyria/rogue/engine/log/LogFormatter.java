@@ -5,11 +5,10 @@ import java.util.Map;
 
 public class LogFormatter {
 
-
-
     private final String pattern;
     private int stacktraceDepth;
     private String dateFormat;
+    private String timeFormat;
 
     public LogFormatter(LogFormat pattern) {
         this(pattern.pattern());
@@ -18,7 +17,8 @@ public class LogFormatter {
     private LogFormatter(String pattern) {
         this.pattern = pattern;
         this.stacktraceDepth = -1;
-        this.dateFormat = "hh:mm:ss";
+        this.dateFormat = "dd.MM.yyyy";
+        this.timeFormat = "HH:mm:ss";
     }
 
     public void setStacktraceDepth(int depth) {
@@ -31,7 +31,8 @@ public class LogFormatter {
 
     public String format(LogEntry entry) {
         String message = pattern;
-        message = replaceKey(message, LogFormat.KEY_TIME, entry.time().format(DateTimeFormatter.ofPattern(dateFormat)));
+        message = replaceKey(message, LogFormat.KEY_TIME, entry.time().format(DateTimeFormatter.ofPattern(timeFormat)));
+        message = replaceKey(message, LogFormat.KEY_DATE, entry.time().format(DateTimeFormatter.ofPattern(dateFormat)));
         message = replaceKey(message, LogFormat.KEY_PREFIX, entry.level().getPrefix());
         message = replaceKey(message, LogFormat.KEY_LEVEL, entry.level().getName());
         message = replaceKey(message, LogFormat.KEY_MESSAGE, entry.message());
