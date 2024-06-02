@@ -126,7 +126,7 @@ public class Main {
 
         Logger.get().addLogWriter(logWriter);
 
-        Logger.record(LoggingLevels.DEBUG).message("Test").log();
+        Logger.record(LoggingLevels.DEBUG).message("Test").parameter("count", 10).log();
         Logger.record(LoggingLevels.ERROR).message("Test").log();
         Logger.record(LoggingLevels.ERROR).throwable(new IOException("File not found!")).log();
         Logger.record(LoggingLevels.ERROR).message("Error occured").throwable(new IOException("Cannot access file")).log();

@@ -26,8 +26,8 @@ public class LogRecord {
         return this;
     }
 
-    public LogRecord parameter(String key, String value) {
-        this.parameters.put(key, value);
+    public LogRecord parameter(String key, Object value) {
+        this.parameters.put(key, String.valueOf(value));
         return this;
     }
 

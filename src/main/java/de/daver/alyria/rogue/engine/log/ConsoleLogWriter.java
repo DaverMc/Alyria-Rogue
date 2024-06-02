@@ -35,35 +35,20 @@ public abstract class ConsoleLogWriter extends LogWriter{
     }
 
     protected String formatMsg(LogEntry entry) {
-        return new LogMessageBuilder(entry).time("hh:mm:ss")
-                .prefix().separator()
-                .logMessage().build();
+        var formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message> (<par_count>) {<parameters>}");
+        return formatter.format(entry);
     }
 
     protected String formatErrorMsg(LogEntry entry) {
-        var message = new LogMessageBuilder(entry);
+        LogFormatter formatter = null;
 
-        if(entry.throwable() != null && entry.message() != null) {
-            return message.time("hh:mm:ss")
-                    .prefix().separator()
-                    .logMessage().newLine()
-                    .printStacktrace().build();
+        if(entry.throwable() != null && entry.message() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message> \n-> Exception: <stacktrace>");
+        else if(entry.throwable() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>] Exception: <stacktrace>");
+        else if(entry.message() != null) formatter = new LogFormatter("[<time>][<prefix>][<level>]: <message>");
 
-        }
+        formatter.setStacktraceDepth(1);
 
-        if(entry.throwable() != null) {
-            return message.time("hh:mm:ss")
-                    .prefix().separator()
-                    .printStacktrace().build();
-        }
-
-        if(entry.message() != null) {
-            return message.time("hh:mm:ss")
-                    .prefix().separator()
-                    .logMessage().build();
-        }
-
-        return "";
+        return (formatter == null)? "" : formatter.format(entry);
     }
 
 }
