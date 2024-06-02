@@ -36,7 +36,7 @@ public class Mouse extends MouseAdapter {
         this.mouseWheelListener = mouseWheelListener;
     }
 
-    public void addListener(Buttons button, ButtonListener listener) {
+    public void addListener(MouseButton button, ButtonListener listener) {
         listeners.put(button.getCode(), listener);
     }
 

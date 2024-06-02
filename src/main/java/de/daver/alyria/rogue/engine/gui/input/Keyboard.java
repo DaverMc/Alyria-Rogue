@@ -22,11 +22,11 @@ public class Keyboard implements java.awt.event.KeyListener {
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
     }
 
-    public void setKeyListener(Keys key, KeyListener keyListener) {
+    public void setKeyListener(Key key, KeyListener keyListener) {
         this.listeners.put(key.getCode(), keyListener);
     }
 
-    public boolean isKeyPressed(Keys key) {
+    public boolean isKeyPressed(Key key) {
         return this.keys[key.getCode()];
     }
 

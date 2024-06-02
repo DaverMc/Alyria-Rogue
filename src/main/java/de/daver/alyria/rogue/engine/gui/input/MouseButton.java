@@ -2,7 +2,7 @@ package de.daver.alyria.rogue.engine.gui.input;
 
 import java.awt.event.MouseEvent;
 
-public enum Buttons {
+public enum MouseButton {
 
     LEFT(MouseEvent.BUTTON1, "Left Button"),
     MIDDLE(MouseEvent.BUTTON2, "Middle Button"),
@@ -11,7 +11,7 @@ public enum Buttons {
     private final int code;
     private final String name;
 
-    Buttons(int code, String name) {
+    MouseButton(int code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -24,8 +24,8 @@ public enum Buttons {
         return this.name;
     }
 
-    public static Buttons getButton(int code) {
-        for (Buttons button : Buttons.values()) {
+    public static MouseButton getButton(int code) {
+        for (MouseButton button : MouseButton.values()) {
             if (button.getCode() == code)  return button;
         }
 

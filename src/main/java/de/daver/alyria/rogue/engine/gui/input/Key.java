@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Keys {
+public enum Key {
 
     VK_ENTER(KeyEvent.VK_ENTER, "Enter"),
     VK_BACK_SPACE(KeyEvent.VK_BACK_SPACE, "Back Space"),
@@ -195,22 +195,22 @@ public enum Keys {
     VK_BEGIN(KeyEvent.VK_BEGIN, "Begin"),
     VK_UNDEFINED(KeyEvent.VK_UNDEFINED, "Undefined");
 
-    private static final Map<Integer, Keys> MAP = new HashMap<>();
+    private static final Map<Integer, Key> MAP = new HashMap<>();
     private final int code;
     private final String name;
 
     static {
-        for (Keys value : Keys.values()) {
+        for (Key value : Key.values()) {
             MAP.put(value.getCode(), value);
         }
     }
 
-    Keys(int code, String name) {
+    Key(int code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static Keys get(int code) {
+    public static Key get(int code) {
         return MAP.get(code);
     }
 

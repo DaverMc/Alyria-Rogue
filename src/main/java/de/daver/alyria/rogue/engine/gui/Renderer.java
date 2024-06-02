@@ -1,7 +1,7 @@
 package de.daver.alyria.rogue.engine.gui;
 
 import de.daver.alyria.rogue.engine.game.Game;
-import de.daver.alyria.rogue.engine.util.ImageUtils;
+import de.daver.alyria.rogue.engine.image.ImageWrapper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -45,7 +45,10 @@ public class Renderer {
     public BufferedImage renderView() {
         Arrays.fill(pixels, COLOR_BLACK); // Reset pixels to black
         objectMap.values().forEach(this::draw);
-        return ImageUtils.scale(image);
+        Window window = Game.get().window();
+        return ImageWrapper.wrap(image)
+                .resize(window.width(), window.height())
+                .unwrap();
     }
 
     private void draw(RenderObject object) {
