@@ -56,6 +56,20 @@ public class AudioManager {
         return new AudioClip(this, clip, audioStream);
     }
 
+    public void stopLane(Lane lane) throws IOException {
+        AudioTask task = laneTasks.remove(lane);
+        if (task == null) return;
+        AudioClip audioClip = task.audioClip();
+        Clip clip = audioClip.clip();
+        if (clip.isOpen()) {
+            clip.stop();
+            audioClip.close();
+        } else {
+            clip.stop();
+            task.task().cancel(true);
+        }
+    }
+
     //SECTION Static Methods
 
     public static AudioManager get() {

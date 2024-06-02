@@ -2,6 +2,7 @@ package de.daver.alyria.rogue.engine.audio;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 import java.util.concurrent.Future;
@@ -29,7 +30,7 @@ public class AudioClip {
         clip.open(stream);
     }
 
-    private void close() throws IOException {
+    void close() throws IOException {
         clip.close();
         stream.close();
     }
@@ -47,8 +48,11 @@ public class AudioClip {
     }
 
     public void play(Lane lane) {
-        AudioTask task = manager.getLaneTasks().remove(lane);
-        if (task != null) removeOld(task);
+        try {
+            manager.stopLane(lane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Future<?> future = manager.getThreadPool().submit(() -> {
             try {
@@ -60,25 +64,13 @@ public class AudioClip {
                 while ((endFrame == -1 || clip.getFramePosition() < endFrame) && clip.isRunning()); //playing
                 clip.close();
             }catch (IOException | LineUnavailableException e) {
-                e.printStackTrace(); //TODO Logging
+                throw new RuntimeException(e);
             }
         });
-        task = new AudioTask(this, future);
-        manager.getLaneTasks().put(lane, task);
+        manager.getLaneTasks().put(lane, new AudioTask(this, future));
     }
 
-    private void removeOld(AudioTask task) {
-        if (task.audioClip().clip.isOpen()) {
-            task.audioClip().clip.stop();
-            try {
-                task.audioClip().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            task.audioClip().clip.stop();
-            task.task().cancel(true);
-        }
+    protected Clip clip() {
+        return clip;
     }
 }
